@@ -49,4 +49,17 @@
       max-width: 100%;
     }
   }
+
+  .beauty-container {
+    width: 100%;
+    padding: 0 5px;
+
+    ul {
+      li {
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

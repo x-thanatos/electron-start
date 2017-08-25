@@ -3,7 +3,6 @@
  */
 import { Toast, Indicator } from 'mint-ui'
 
-const URL_BASE = 'http://qjcg-oss.oss-cn-qingdao.aliyuncs.com/'
 const search = function () {
   if (!this.form.keywords) {
     return
@@ -16,18 +15,18 @@ const search = function () {
     method: 'GET',
     url: '/api/getImage'
   }
+  const message = '看，好多美女!'
   this.$http(req)
-    .then(({ body }) => {
-    console.log(body)
-      this.result.url = ''
-      if (body.data) {
-        this.result.url = body.data[3].keyword
-      } else {
-        Toast('暂无数据')
-      }
-    })
-    .catch(err => Toast(err.statusText))
-    .finally(() => Indicator.close())
+  .then(({ body }) => {
+    this.result.url = ''
+    if (body.data) {
+      this.result.url = body.data[3].keyword
+    } else {
+      Toast(message)
+    }
+  })
+  .catch(err => Toast(err.statusText ? err.message : message))
+  .finally(() => Indicator.close())
 }
 const methods = {
   search

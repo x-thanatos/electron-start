@@ -9,4 +9,11 @@
   <div v-if="result.url" class="image-container">
     <img :src="result.url" alt="image">
   </div>
+  <div class="beauty-container">
+    <ul class="list-without-style">
+      <li v-for="beauty in beauties">
+        <img v-lazy="beauty">
+      </li>
+    </ul>
+  </div>
 </div>
