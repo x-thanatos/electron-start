@@ -1,0 +1,12 @@
+<div class="view">
+  <div class="header">
+    打我啊
+  </div>
+  <div class="filter">
+    <input class="input" placeholder="来啊" @keyup.13="search" v-model="form.keywords">
+    <button class="search-btn" @click="search">打我</button>
+  </div>
+  <div v-if="result.url" class="image-container">
+    <img :src="result.url" alt="image">
+  </div>
+</div>
