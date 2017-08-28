@@ -1,18 +1,15 @@
 {
-  "name": "electron-demo",
+  "name": "awesome-electron",
   "version": "1.0.0",
   "description": "this is my first electron app",
-  "main": "entry.js",
+  "main": "index.js",
   "repository": "https://github.com/xJesson/electron-start.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --host 0.0.0.0 --colors --progress --config build/dev.js",
-    "dev:hmr": "webpack-dev-server --hot --inline --host 0.0.0.0 --colors --progress --config build/dev.js",
-    "build": "webpack --colors --progress --hide-modules  --optimize-minimize --config build/prod.js",
-    "dev:pages": "cross-env PROJECT=pages/* npm run dev:hmr",
-    "package:pages": "cross-env PROJECT=pages/* npm run build",
-    "package:win32": "electron-packager ./ --overwrite --platform=win32  --arch=ia32 --out=windows-dist --icon=./favicon.png",
-    "package:all": "npm run package:pages && npm run package:win32"
+    "dev": "webpack-dev-server --host 0.0.0.0 --colors --progress --config ./build/dev.js",
+    "dev:hmr": "webpack-dev-server --hot --inline --host 0.0.0.0 --colors --progress --config ./build/dev.js",
+    "build": "rm -rf ./dist && webpack --colors --progress --hide-modules  --optimize-minimize --config ./build/prod.js",
+    "package:win32": "rm -rf ./windows-dist && electron-packager ./ --overwrite --platform=win32 --arch=ia32 --out=windows-dist --icon=./favicon.ico",
+    "package:all": "npm run build && npm run package:win32"
   },
   "author": "",
   "license": "ISC",

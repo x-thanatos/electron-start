@@ -5,20 +5,22 @@ const url = require('url')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
-
+const NODE_ENV = process.env.NODE_ENV
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({ width: 320, height: 568 })
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, './dist/pages/hit-me.html'),
+    pathname: path.join(__dirname, './dist/index.html'),
     protocol: 'file:',
     slashes: true
   }))
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  if (NODE_ENV !== 'production') {
+    // win.webContents.openDevTools()
+  }
 
   // Emitted when the window is closed.
   win.on('closed', () => {

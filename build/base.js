@@ -2,43 +2,15 @@ const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const config = require('../config.json')
 
-const project = {
-  category: process.env.PROJECT.split('/')[0].trim(),
-  name: process.env.PROJECT.split('/')[1].trim()
-}
-const entry = {}
-const templates = []
-const htmlGenerator = (entrance, category) => {
-  let app = category === 'spa' ? 'app' : entrance
-  entry[app] = path.join(__dirname, `../src/${category}/${entrance}/main.js`)
-  return new HtmlWebpackPlugin({
-    filename: `${app}.html`,
-    favicon: path.join(__dirname, '../favicon.png'),
-    template: path.join(__dirname, `../src/${category}/${entrance}/index.html`),
-    inject: 'body',
-    chunks: ['vendor', app],
-    hash: true
-  })
-}
-let outPath = ''
-if (project.category === 'pages') {
-  config.pages.forEach((entrance) => {
-    templates.push(htmlGenerator(entrance, project.category))
-  })
-  outPath = path.join(__dirname, `../dist/${project.category}`)
-} else if (project.category === 'spa') {
-  templates.push(htmlGenerator(project.name, project.category))
-  outPath = path.join(__dirname, `../dist/${project.category}/${project.name}`)
-}
-
-let webpackConfig = {
+let baseConfig = {
   target: 'web',
   profile: true,
-  entry: entry,
+  entry: {
+    index: path.join(__dirname, '../src/index.js')
+  },
   output: {
-    path: outPath,
+    path: path.join(__dirname, '../dist'),
     filename: '[name].js',
   },
   resolve: {
@@ -124,8 +96,14 @@ let webpackConfig = {
       name: 'vendor',
       filename: 'vendor.js'
     }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      favicon: path.join(__dirname, '../favicon.ico'),
+      template: path.join(__dirname, '../src/index.html'),
+      inject: 'body',
+      hash: true
+    }),
     new ExtractTextPlugin('[name].css')
   ]
 }
-webpackConfig.plugins.push(...templates)
-module.exports = webpackConfig
+module.exports = baseConfig

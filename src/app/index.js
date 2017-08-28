@@ -9,9 +9,9 @@ import methods from './methods'
 import './style.scss'
 
 Vue.use(Lazyload)
-const installImage = {
+const myFavorite = {
   template,
   data,
   methods
 }
-export default Vue.component('install-image', installImage)
+export default Vue.component('my-favorite', myFavorite)
